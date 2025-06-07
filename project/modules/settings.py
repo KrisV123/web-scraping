@@ -34,3 +34,4 @@ PATTERNS: dict[str, str | re.Pattern[str] | dict[str, str | re.Pattern[str]]] = 
 BUFFER: int = 50
 PARAGRAPH_BUFFER: int = 500
 TIMEOUT: float = 10
+CHECK_DIGITAL_SIGNS: bool = False

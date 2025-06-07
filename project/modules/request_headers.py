@@ -131,6 +131,11 @@ sec_ch_ua_values_weights = [
 ]
 
 def choose_platform(user_agent: str) -> tuple[str, str]:
+    """Returns operating system and sec_ch_ua_mobile coresponding to it
+    Returns:
+    tuple[os_system, '?0' or '?1']
+    """
+
     if 'windows' in user_agent.lower():
         platform = 'Windows'
         sec_ch_ua_mobile = '?0'
@@ -156,6 +161,15 @@ def choose_platform(user_agent: str) -> tuple[str, str]:
 
 
 def generate_header() -> dict[str, str]:
+    """Returns custom headers from real life statistics
+    Returns:
+    user_agent\n
+    accept_encoding\n
+    accept_language\n
+    sec_ch_ua\n
+    sec_ch_ua_platform
+    """
+
     user_agent = choices(user_agents, weights=user_agent_weights, k=1)[0]
     accept_encoding = choices(accepts, weights=accept_weights, k=1)[0]
     accept_language = choices(languages, weights=language_weights, k=1)[0]

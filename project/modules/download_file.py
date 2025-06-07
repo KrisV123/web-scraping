@@ -11,20 +11,32 @@ except:
     from request_headers import generate_header # type: ignore
     from settings import TIMEOUT #type: ignore
 
-def get_code_list(code: str) -> list[str]:
-    code_list: list[str] = ['','','','']
+def get_code_list(code: str) -> tuple[str, str, str, str]:
+    """Returns tuple with every param from code string
+    Returns:
+    tuple[str, str, str, str]
+    """
+
+    code_lst = ['','','','']
     pos = 0
     for char in code:
         if char != '/':
-            code_list[pos] += char
+            code_lst[pos] += char
         else:
             pos += 1
-    return code_list
+
+    tuple_list = (code_lst[0], code_lst[1], code_lst[2], code_lst[3])
+    return tuple_list
 
 
-def get_hrefs_url(code_list: list[str],
+def get_hrefs_url(code_list: tuple[str, str, str, str],
                   headers: dict[str, str],
                   min_wait_time: float) -> list[str] | None:
+    """Returns url adresses to all contracts connected to code
+    Returns:
+    list[url_adress]
+    """
+
     x, y, z, w = code_list
     url = f'https://www.crz.gov.sk/2171273-sk/centralny-register-zmluv/?art_zs2=&art_predmet=&art_ico=&art_suma_spolu_od=&art_suma_spolu_do=&art_datum_zverejnene_od=&art_datum_zverejnene_do=&art_rezort=0&art_zs1=&nazov={x}%2F{y}%2F{z}%2F{w}&art_ico1=&odoslat=&ID=2171273&frm_id_frm_filter_3=683099544838d'
 
@@ -54,6 +66,12 @@ def get_pdf_list(url: str,
                  headers: dict[str, str],
                  min_wait_time: float,
                  pdf_url_list: list[str] | None) -> list[str]:
+    """Returns list of all pdf_file url adresses connected to one contract.
+    Recursively called on every addents
+    Returns:
+    list[url_adress]
+    """
+
     if pdf_url_list is None:
         pdf_url_list = list()
 
@@ -98,6 +116,11 @@ def get_pdf_list(url: str,
 def download_PDF(url: str,
                  dest_path: Path,
                  min_wait_time: float) -> None:
+    """Download all pdf_files in attachments section into pdf_files folder
+    Returns:
+    None
+    """
+
     try:
         resp = requests.get(url, timeout=TIMEOUT)
     except:
@@ -121,6 +144,7 @@ def get_files(code: str, min_wait_time: float) -> bool:
     Returns:
     True if was succesful and False if not
     """
+
     requests.Session()
     if '/' in code:
         code_list = get_code_list(code)
@@ -132,7 +156,7 @@ def get_files(code: str, min_wait_time: float) -> bool:
     if not href_urls:
         print("WARNING: href was expacted but wasn't fount")
         return False
-    pdf_files_dir = Path(__file__).resolve().parent.parent.parent / 'pdf_files'
+    pdf_files_dir = Path(__file__).resolve().parents[2] / 'pdf_files'
 
     if href_urls is None:
         print('WARNING: document not found')
@@ -151,8 +175,10 @@ def get_files(code: str, min_wait_time: float) -> bool:
 
 
 if __name__ == '__main__':
+    # preset values for quick debuging
+
     # s jednym dodatkom - 20/01/54E/4095
     # s dodatkami - 20/01/54E/1933
     # dva dokumenty pod jednym kodom - 22/01/54E/1077
     # bez dokumentu - 15/01/54BAZ/54
-    get_files('20/01/54E/1808', 0.4)
+    get_files('20/01/54E/4421', 0.4)
