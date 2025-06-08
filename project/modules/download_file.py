@@ -11,7 +11,7 @@ except:
     from request_headers import generate_header # type: ignore
     from settings import TIMEOUT #type: ignore
 
-def get_code_list(code: str) -> tuple[str, str, str, str]:
+def get_code_tuple(code: str) -> tuple[str, str, str, str]:
     """Returns tuple with every param from code string
     Returns:
     tuple[str, str, str, str]
@@ -25,11 +25,11 @@ def get_code_list(code: str) -> tuple[str, str, str, str]:
         else:
             pos += 1
 
-    tuple_list = (code_lst[0], code_lst[1], code_lst[2], code_lst[3])
-    return tuple_list
+    code_tuple = (code_lst[0], code_lst[1], code_lst[2], code_lst[3])
+    return code_tuple
 
 
-def get_hrefs_url(code_list: tuple[str, str, str, str],
+def get_hrefs_url(code: tuple[str, str, str, str] | str,
                   headers: dict[str, str],
                   min_wait_time: float) -> list[str] | None:
     """Returns url adresses to all contracts connected to code
@@ -37,8 +37,14 @@ def get_hrefs_url(code_list: tuple[str, str, str, str],
     list[url_adress]
     """
 
-    x, y, z, w = code_list
-    url = f'https://www.crz.gov.sk/2171273-sk/centralny-register-zmluv/?art_zs2=&art_predmet=&art_ico=&art_suma_spolu_od=&art_suma_spolu_do=&art_datum_zverejnene_od=&art_datum_zverejnene_do=&art_rezort=0&art_zs1=&nazov={x}%2F{y}%2F{z}%2F{w}&art_ico1=&odoslat=&ID=2171273&frm_id_frm_filter_3=683099544838d'
+    if isinstance(code, tuple):
+        x, y, z, w = code
+        url = f'https://www.crz.gov.sk/2171273-sk/centralny-register-zmluv/?art_zs2=&art_predmet=&art_ico=&art_suma_spolu_od=&art_suma_spolu_do=&art_datum_zverejnene_od=&art_datum_zverejnene_do=&art_rezort=0&art_zs1=&nazov={x}%2F{y}%2F{z}%2F{w}&art_ico1=&odoslat=&ID=2171273&frm_id_frm_filter_3=683099544838d'
+    elif isinstance(code, str):
+        url = f'https://www.crz.gov.sk/2171273-sk/centralny-register-zmluv/?art_zs2=&art_predmet=&art_ico=&art_suma_spolu_od=&art_suma_spolu_do=&art_datum_zverejnene_od=&art_datum_zverejnene_do=&art_rezort=0&art_zs1=&nazov={code}&art_ico1=&odoslat=&ID=2171273&frm_id_frm_filter_3=684588a7914e6'
+    else:
+        print("WARNING: code types don't match")
+        return None
 
     try:
         resp = requests.get(url, headers=headers, timeout=TIMEOUT)
@@ -114,6 +120,7 @@ def get_pdf_list(url: str,
 
 
 def download_PDF(url: str,
+                 headers: dict[str, str],
                  dest_path: Path,
                  min_wait_time: float) -> None:
     """Download all pdf_files in attachments section into pdf_files folder
@@ -122,7 +129,7 @@ def download_PDF(url: str,
     """
 
     try:
-        resp = requests.get(url, timeout=TIMEOUT)
+        resp = requests.get(url, headers=headers, timeout=TIMEOUT)
     except:
         print('request for download_PDF function failed')
         return None
@@ -138,21 +145,25 @@ def download_PDF(url: str,
                 f.write(chunk)
 
 
-def get_files(code: str, min_wait_time: float) -> bool:
+def get_files(code: str,
+              min_wait_time: float,
+              code_index: int | None = None) -> bool:
     """finds and downloads every PDF file into pdf_files folder
-    
     Returns:
     True if was succesful and False if not
     """
 
     requests.Session()
+
+    new_code: tuple[str, str, str, str] | str
     if '/' in code:
-        code_list = get_code_list(code)
+        new_code = get_code_tuple(code)
     else:
-        print('verzia kodu bez lomitok nie je este implementovana')
-        return False
+        new_code = code
+
     headers = generate_header()
-    href_urls = get_hrefs_url(code_list, headers, min_wait_time)
+    href_urls = get_hrefs_url(new_code, headers, min_wait_time)
+
     if not href_urls:
         print("WARNING: href was expacted but wasn't fount")
         return False
@@ -166,11 +177,18 @@ def get_files(code: str, min_wait_time: float) -> bool:
     for href in href_urls:
         pdf_list = get_pdf_list(href, headers, min_wait_time, None)
         for pdf in pdf_list:
-            download_PDF(pdf,
+            if code_index:
+                download_PDF(pdf,
+                         headers,
+                         pdf_files_dir / f'pdf_{code_index + 1}_{pdf_index}.pdf',
+                         min_wait_time)
+            else:
+                download_PDF(pdf,
+                         headers,
                          pdf_files_dir / f'pdf_{pdf_index}.pdf',
                          min_wait_time)
             pdf_index += 1
-    
+
     return True
 
 
@@ -181,4 +199,4 @@ if __name__ == '__main__':
     # s dodatkami - 20/01/54E/1933
     # dva dokumenty pod jednym kodom - 22/01/54E/1077
     # bez dokumentu - 15/01/54BAZ/54
-    get_files('20/01/54E/4421', 0.4)
+    get_files('20/01/54E/6028', 0.4)

@@ -3,11 +3,11 @@ import regex as re
 KEYWORD_ALIASES: dict[str, list[str]] = {
     'birth_number': ['rodné číslo', 'rod. č.', 'r. č.', 'rč.'],
     'date': ['dátum narodenia', 'dátum nar.', 'dát. nar.', 'dat. nar.', 'd. nar.'],
-    'adress': ['trvalý pobyt', 'bydlisko', 'trv. pobyt'],
+    'adress': ['trvalý pobyt', 'bydlisko', 'trv. pobyt', 'trvale bytom'],
     'banking': ['bankové spojenie', 'iban', 'číslo účtu', 'č. účtu', 'číslo u.'],
 
     'signed_digitally': ['podpísané elektronicky'],
-    'fyzicka osoba': [' fo ', 'fyzická osoba', 'fyzickou osobou']
+    'fyzicka osoba': [' fo ', 'fyzická osoba', 'fyzickou osobou', 'zuoz', 'zoz']
 }
 
 day: str = r'(0?[1-9]|[1-2][0-9]|3[0-1])'

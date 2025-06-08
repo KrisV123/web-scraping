@@ -49,6 +49,13 @@ Hlavný file, kde sa celý kód spája, súbor main.py
 7. následovne iteruje cez celý list data
 
 
+## bulk download
+
+súbor bulk_download.py
+
+Do terminálu treba vložiť názov hárku a poradie stĺpca, v ktorom sa nachádzajú čísla zmlúv. Následne sa všetky pdf dokumenty začnú ukladať do pdf_files súbora. Táto funkcia je užitočná na jednoduchšie kontrolovanie podpisov. V budúcnosti bude možno compilnutá, kvôli problémom s inštalovaním nových programov na firemné počítače ako napríklad python interpret
+
+
 ## Ako spustiť script
 
 odporúčané:
@@ -60,9 +67,8 @@ odporúčané:
 ## Známe problémy
 
 1. efektivita závisí hlavne na ideálnych aliasoch (tiež nie je dobré, ak ich je príliš veľa)
-2. zatiaľ nefungujú čísla zmluv bez lomítok
-3. nenájde podpisy ale takťiež momentálne nie sú v predpokladoch
-4. nie je otestované na väčšej testovacej vzorke (momentálne cca 70 čísiel zmlúv)
+2. nenájde podpisy ale takťiež momentálne nie sú v predpokladoch
+3. nie je otestované na väčšej testovacej vzorke (momentálne cca 70 čísiel zmlúv)
 
 
 Občas sú pridané stubs, ale iba pri niektorých konštantách a funkciách. README je písaný čo najviac stručne a viac informácií a funkciách srciptu treba pozrieť kód

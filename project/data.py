@@ -37,6 +37,20 @@ def test_values() -> list[str]:
     return data
 
 
+def test_values_2() -> list[str]:
+    """Codes without backslash
+    Returns:
+    list[str]
+    """
+
+    data = [
+        '121114094457',
+        '120807115358',
+        '120831082859',
+    ]
+    return data
+
+
 if __name__ == '__main__':
-    code_list = get_code_from_excel('Veselá', 4)
+    code_list = get_code_from_excel('Jurčovičová', 4)
     print(code_list)

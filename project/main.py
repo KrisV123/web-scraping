@@ -16,7 +16,7 @@ def clean_folder(folder: Path) -> None:
             file.unlink()
 
 
-def failed_get_files_call(code, code_index) -> tuple[str, bool]:
+def failed_get_files_call(code: str, code_index: int) -> tuple[str, bool]:
     """Response for failed get_files function call
     Returns:
     tuple[ans_string, always True]
@@ -26,13 +26,14 @@ def failed_get_files_call(code, code_index) -> tuple[str, bool]:
         code: {code}
         code index: {code_index}\n
         WARINING: wasn't found any document
-        (not found any document, link to the document or page wasn't loaded)
+        (not found any document, link to the document,
+        page wasn't loaded or code types don't match)
     """)
 
     return (ans_string, True)
 
 
-def succ_get_files_call(code, code_index) -> tuple[str, bool]:
+def succ_get_files_call(code: str, code_index: int) -> tuple[str, bool]:
     """Response for successful get_files function call
     Returns:
     tuple[ans_string, are there any messages?]
@@ -69,11 +70,11 @@ def succ_get_files_call(code, code_index) -> tuple[str, bool]:
 def parse_files(only_wrong: bool) -> None:
     """Main function"""
 
-    data = get_code_from_excel('Veselá', 4)
+    data = get_code_from_excel('Jurčovičová', 4)
     for code_index, code in enumerate(data):
         print(code_index + 1)
 
-        pdf_files_dir = pdf_files_dir = Path(__file__).resolve().parents[1] / 'pdf_files'
+        pdf_files_dir = Path(__file__).resolve().parents[1] / 'pdf_files'
         clean_folder(pdf_files_dir)
         succ = get_files(code, 0.4)
 

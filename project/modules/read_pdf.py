@@ -136,10 +136,7 @@ if __name__ == '__main__':
 
         if text is not None:
             text = text.lower()
-            print(text)
+            #print(text)
             print()
             result = check_PDF(text)
             print(result.messages)
-
-        print(file)
-        print(result.result)
