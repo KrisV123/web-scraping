@@ -67,7 +67,7 @@ def check_PDF(text: str) -> result_class:
     Result_class instance
     """
 
-    text = format_spaces(text)
+    text = format_spaces(text).lower()
     ahoc = ahocorasick.Automaton()
 
     # making ahocarasic data structure
@@ -135,7 +135,6 @@ if __name__ == '__main__':
         text = get_pdf_text(file)
 
         if text is not None:
-            text = text.lower()
             #print(text)
             print()
             result = check_PDF(text)

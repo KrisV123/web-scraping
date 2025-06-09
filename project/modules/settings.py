@@ -5,6 +5,7 @@ KEYWORD_ALIASES: dict[str, list[str]] = {
     'date': ['dátum narodenia', 'dátum nar.', 'dát. nar.', 'dat. nar.', 'd. nar.'],
     'adress': ['trvalý pobyt', 'bydlisko', 'trv. pobyt', 'trvale bytom'],
     'banking': ['bankové spojenie', 'iban', 'číslo účtu', 'č. účtu', 'číslo u.'],
+    'ID_card_num': ['číslo op', 'číslo občianskeho preukazu'],
 
     'signed_digitally': ['podpísané elektronicky'],
     'fyzicka osoba': [' fo ', 'fyzická osoba', 'fyzickou osobou', 'zuoz', 'zoz']
@@ -28,7 +29,8 @@ PATTERNS: dict[str, str | re.Pattern[str] | dict[str, str | re.Pattern[str]]] = 
     'banking': {
         'bank_num': r'\b(\d{1,6}-)?\d{10}/\d{4}\b',
         'iban': r'\b[a-zA-Z]{2}\d{2}\s?\d{4}\s?\d{4}\s?\d{4}\s?\d{4}\s?\d{4}\b',
-    }
+    },
+    'ID_card_num': r'\b[a-z]{2}\d{6}\b'
 }
 
 BUFFER: int = 50

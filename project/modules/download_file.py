@@ -178,15 +178,17 @@ def get_files(code: str,
         pdf_list = get_pdf_list(href, headers, min_wait_time, None)
         for pdf in pdf_list:
             if code_index:
-                download_PDF(pdf,
-                         headers,
-                         pdf_files_dir / f'pdf_{code_index + 1}_{pdf_index}.pdf',
-                         min_wait_time)
+                download_PDF(
+                    pdf,
+                    headers,
+                    pdf_files_dir / f'pdf_{code_index + 1}_{pdf_index}.pdf',
+                    min_wait_time)
             else:
-                download_PDF(pdf,
-                         headers,
-                         pdf_files_dir / f'pdf_{pdf_index}.pdf',
-                         min_wait_time)
+                download_PDF(
+                    pdf,
+                    headers,
+                    pdf_files_dir / f'pdf_{pdf_index}.pdf',
+                    min_wait_time)
             pdf_index += 1
 
     return True
@@ -199,4 +201,4 @@ if __name__ == '__main__':
     # s dodatkami - 20/01/54E/1933
     # dva dokumenty pod jednym kodom - 22/01/54E/1077
     # bez dokumentu - 15/01/54BAZ/54
-    get_files('20/01/54E/6028', 0.4)
+    get_files('22/01/54U/4', 0.4)

@@ -26,7 +26,6 @@ def download_all_files(name: str, column: int) -> None:
         with open('answer.txt', 'a', encoding='utf-8') as f:
             f.write(ans_string)
 
-
     data = get_code_from_excel(name, column)
     pdf_files_dir = Path(__file__).resolve().parents[1] / 'pdf_files'
     clean_folder(pdf_files_dir)

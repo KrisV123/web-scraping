@@ -50,6 +50,20 @@ def test_values_2() -> list[str]:
     ]
     return data
 
+def test_values_3() -> list[str]:
+    """Codes with leaked ID card number
+    Returns:
+    list[str]
+    """
+
+    data = [
+        '22/01/54U/2',
+        '22/01/54U/3',
+        '22/01/54U/4',
+        '22/01/54U/9'
+    ]
+    return data
+
 
 if __name__ == '__main__':
     code_list = get_code_from_excel('Jurčovičová', 4)
