@@ -70,7 +70,9 @@ def succ_get_files_call(code: str, code_index: int) -> tuple[str, bool]:
 def parse_files(only_wrong: bool) -> None:
     """Main function"""
 
-    data = get_code_from_excel('Veselá', 4)
+    name = input('name: ')
+    column = input('column: ')
+    data = get_code_from_excel(name, int(column))
     for code_index, code in enumerate(data):
         print(code_index + 1)
 
