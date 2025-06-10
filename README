@@ -46,19 +46,20 @@ Výhody canon slov a aliasov sú, že sa dá kód ľahko rozšíriť na viacero 
 Hlavný file, kde sa celý kód spája, súbor main.py
 
 1. funkcia get_code_list() získa všetky kódy z konkrétneho excel hárku
-2. zoberie sa jeden string z listu data
+2. zoberie všetky kódy z hárku v excel tabulke kontrola crz.xlsx. Mená vyberá postupne podľa SHEET_NAME_LIST konštanty
 3. stiahne pdf_súbory do pdf_files
 4. skontroluje ich
-5. appendne odpoveď do answer.txt
+5. vytvorí nový .txt dokument v answers súbore a postupne appenduje všetky správy
 6. vyčistí pdf_files folder
-7. následovne iteruje cez celý list data
+7. následne iteruje cez celý hárok
+8. znova iteruje cez celý SHEET_NAME_LIST
 
 
 ## bulk download
 
 súbor bulk_download.py
 
-Do terminálu treba vložiť názov hárku a poradie stĺpca, v ktorom sa nachádzajú čísla zmlúv. Následne sa všetky pdf dokumenty začnú ukladať do pdf_files súbora. Táto funkcia je užitočná na jednoduchšie kontrolovanie podpisov. V budúcnosti bude možno compilnutá, kvôli problémom s inštalovaním nových programov na firemné počítače ako napríklad python interpret
+Do terminálu treba vložiť názov hárku a poradie stĺpca, v ktorom sa nachádzajú čísla zmlúv. Následne sa všetky pdf dokumenty začnú ukladať do pdf_files súbora. Táto funkcia je užitočná na jednoduchšie kontrolovanie podpisov
 
 
 ## Ako spustiť script
