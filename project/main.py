@@ -3,7 +3,7 @@ from textwrap import dedent
 
 from modules.download_file import get_files
 from modules.read_pdf import check_PDF, get_pdf_text_2
-from data import get_code_from_excel
+from data import get_code_from_excel, SHEET_NAME_LIST
 
 def clean_folder(folder: Path) -> None:
     """Clear folder. Made for pdf_files folder
@@ -67,12 +67,10 @@ def succ_get_files_call(code: str, code_index: int) -> tuple[str, bool]:
     return (ans_string, are_messages)
 
 
-def parse_files(only_wrong: bool) -> None:
+def parse_files(name: str, column: int, only_wrong: bool) -> None:
     """Main function"""
 
-    name = input('name: ')
-    column = input('column: ')
-    data = get_code_from_excel(name, int(column))
+    data = get_code_from_excel(name, column)
     for code_index, code in enumerate(data):
         print(code_index + 1)
 
@@ -90,7 +88,7 @@ def parse_files(only_wrong: bool) -> None:
         ans_string += '\n' + '_' * 40 + '\n\n'
 
         if not only_wrong or (only_wrong and are_messages):
-            with open('answer.txt', 'a', encoding='utf-8') as f:
+            with open(f'answers/answer_{name}.txt', 'a', encoding='utf-8') as f:
                 f.write(ans_string)
 
     clean_folder(pdf_files_dir)
@@ -98,5 +96,9 @@ def parse_files(only_wrong: bool) -> None:
 
 if __name__ == '__main__':
     print('START')
-    parse_files(True)
+    for name in SHEET_NAME_LIST:
+        print(f'Sheet {name}')
+        print()
+        parse_files(name, 4, True)
+        print()
     print('END')

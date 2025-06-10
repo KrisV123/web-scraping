@@ -1,6 +1,15 @@
 import pandas as pd
 from pathlib import Path
 
+SHEET_NAME_LIST: list[str] = ['Horňáková', 'Reichová', 'Jurčovičová', 'Króliková',
+                             'Duduka', 'Zboroň', 'Chibeya', 'Kukučková', 'Malíková',
+                             'Cviková', 'Fabianová', 'Bakajová', 'Horanová', 'Glatzová',
+                             'Banyák', 'Kunová', 'Zbončáková', 'Veselá', 'Mužiková',
+                             'Vargová', 'Jakubíková', 'Barošová', 'Nádaská', 'Dehelánová',
+                             'Balážová', 'Bučková', 'Marková', 'Staňová', 'Baranová',
+                             'Ostrožlíková', 'Matušťáková', 'Jenčová', 'Bažíková',
+                             'Melichová']
+
 def get_code_from_excel(sheet_name: str, column_ord: int) -> list[str]:
     """Parse excel file 'kontrola crz.xlsx' and
     returns all codes from specific sheet
