@@ -2,6 +2,7 @@ from pathlib import Path
 from PyPDF2 import PdfReader
 import ahocorasick #type: ignore
 import regex as re
+import pymupdf # type: ignore
 
 try:
     from .settings import CHECK_DIGITAL_SIGNS #type: ignore
@@ -13,8 +14,27 @@ try:
 except:
     from settings import KEYWORD_ALIASES, PATTERNS, PARAGRAPH_BUFFER, BUFFER #type: ignore
 
+
+def get_pdf_text_2(pdf_file: Path) -> str | None:
+    """Returns text from pdf_file with pymupdf library
+    Returns:
+    text
+    """
+    if pdf_file.suffix.lower() != '.pdf':
+        print('file is not pdf')
+        return None
+
+    with pymupdf.open(str(pdf_file)) as doc:
+        all_text = ''
+        for page in doc:
+            text = page.get_text()
+            all_text += text + ' '
+
+    return all_text
+
+
 def get_pdf_text(pdf_file: Path) -> str | None:
-    """Returns text from pdf_file
+    """Returns text from pdf_file with PyPDF2 library
     Returns:
     text
     """
@@ -132,10 +152,10 @@ if __name__ == '__main__':
     pdf_files_folder = project_folder / 'pdf_files'
     
     for file in pdf_files_folder.iterdir():
-        text = get_pdf_text(file)
+        text = get_pdf_text_2(file)
 
         if text is not None:
-            #print(text)
+            print(text)
             print()
             result = check_PDF(text)
             print(result.messages)

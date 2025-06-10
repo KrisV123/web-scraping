@@ -2,7 +2,7 @@ from pathlib import Path
 from textwrap import dedent
 
 from modules.download_file import get_files
-from modules.read_pdf import check_PDF, get_pdf_text
+from modules.read_pdf import check_PDF, get_pdf_text_2
 from data import get_code_from_excel
 
 def clean_folder(folder: Path) -> None:
@@ -46,7 +46,7 @@ def succ_get_files_call(code: str, code_index: int) -> tuple[str, bool]:
     for order, pdf in enumerate(pdf_files_dir.iterdir()):
         if pdf.name == '.gitkeep':
             continue
-        text = get_pdf_text(pdf)
+        text = get_pdf_text_2(pdf)
         if text:
             ans_inst = check_PDF(text)
         else:

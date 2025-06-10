@@ -3,7 +3,7 @@ import regex as re
 KEYWORD_ALIASES: dict[str, list[str]] = {
     'birth_number': ['rodné číslo', 'rod. č.', 'r. č.', 'rč.'],
     'date': ['dátum narodenia', 'dátum nar.', 'dát. nar.', 'dat. nar.', 'd. nar.'],
-    'adress': ['trvalý pobyt', 'bydlisko', 'trv. pobyt', 'trvale bytom'],
+    'adress': ['trvalý pobyt', 'bydlisko', 'trv. pobyt', 'trvale bytom', 'adresa trvalého pobytu'],
     'banking': ['bankové spojenie', 'iban', 'číslo účtu', 'č. účtu', 'číslo u.'],
     'ID_card_num': ['číslo op', 'číslo občianskeho preukazu'],
 
