@@ -2,8 +2,8 @@ from pathlib import Path
 from textwrap import dedent
 
 from modules.download_file import get_files
-from modules.read_pdf import check_PDF, get_pdf_text_2
-from data import get_code_from_excel, SHEET_NAME_LIST
+from modules.read_pdf import check_PDF, get_pdf_text_2, format_spaces
+from data import get_code_from_excel, SHEET_NAME_LIST, custom_values
 
 def clean_folder(folder: Path) -> None:
     """Clear folder. Made for pdf_files folder
@@ -46,22 +46,26 @@ def succ_get_files_call(code: str, code_index: int) -> tuple[str, bool]:
     for order, pdf in enumerate(pdf_files_dir.iterdir()):
         if pdf.name == '.gitkeep':
             continue
+
         text = get_pdf_text_2(pdf)
+        if text is not None:
+            text = format_spaces(text)
+
         if text:
             ans_inst = check_PDF(text)
+
+            if not are_messages and len(ans_inst.messages) > 0:
+                are_messages = True
+
+            ans_string += dedent(f"""
+                order: {order}
+                status: {'pass' if not ans_inst.result else 'FAIL'}
+                messages: {ans_inst.messages if len(ans_inst.messages) != 0 else 'N/A'}
+                    """)
         else:
+            are_messages = True
             ans_string += dedent("""
                 document can't be translated into text (probably scan)
-                    """)
-            return (ans_string, True)
-
-        if not are_messages and len(ans_inst.messages) > 0:
-            are_messages = True
-
-        ans_string += dedent(f"""
-            order: {order}
-            status: {'pass' if not ans_inst.result else 'FAIL'}
-            messages: {ans_inst.messages if len(ans_inst.messages) != 0 else 'N/A'}
                     """)
 
     return (ans_string, are_messages)

@@ -62,6 +62,9 @@ def format_spaces(text: str) -> str:
     formated_text = str()
     index = 0
 
+    while index < len(text) and text[index] in [' ', r'\n']:
+        index += 1
+
     while index < len(text):
         if not text[index] == ' ' or\
            not text[index - 1] == ' ':
@@ -87,7 +90,7 @@ def check_PDF(text: str) -> result_class:
     Result_class instance
     """
 
-    text = format_spaces(text).lower()
+    text = text.lower()
     ahoc = ahocorasick.Automaton()
 
     # making ahocarasic data structure
@@ -155,6 +158,7 @@ if __name__ == '__main__':
         text = get_pdf_text_2(file)
 
         if text is not None:
+            text = format_spaces(text)
             print(text)
             print()
             result = check_PDF(text)

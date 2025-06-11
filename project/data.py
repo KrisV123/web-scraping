@@ -73,6 +73,18 @@ def test_values_3() -> list[str]:
     ]
     return data
 
+def custom_values() -> list[str]:
+    """Add values witch you want. Ideal for simulating
+    real imput from excel sheet
+    Returns:
+    list[str]"""
+
+    data = [
+        '19/01/051/55',
+        '20/01/54E/4184'
+    ]
+    return data
+
 
 if __name__ == '__main__':
     code_list = get_code_from_excel('Jurčovičová', 4)

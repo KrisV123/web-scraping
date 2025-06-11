@@ -8,7 +8,7 @@ KEYWORD_ALIASES: dict[str, list[str]] = {
     'ID_card_num': ['číslo op', 'číslo občianskeho preukazu'],
 
     'signed_digitally': ['podpísané elektronicky'],
-    'fyzicka osoba': [' fo ', 'fyzická osoba', 'fyzickou osobou', 'zuoz', 'zoz']
+    'fyzicka osoba': [' fo ', 'fyzická osoba', 'fyzickou osobou', 'zuoz', 'uoz', 'zoz', 'znevýhodneným uchádzačom o zamestnanie']
 }
 
 day: str = r'(0?[1-9]|[1-2][0-9]|3[0-1])'
