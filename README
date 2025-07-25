@@ -22,7 +22,7 @@ funkie v module download_file.py
 
 dodatok:
 
-som už paranoidný po predošlých skúsenostiach a preto pre kažký request generujem náhodné html headery z modulu request_headers.py. Sú tam aj váhy pre kažký jeden paramenter a ich náhoda sa odvíja od nich. Dáta sú získané z reálnej štatistiky. Taktiež generujem aj nové cookies súbory. Pre každé jedno číslo zmluvy generujem jeden header a jeden cookie jar aby som simuloval jedného človeka. Rozostupy medzi requestami sú tiež náhodné (0,4-0,7s). Dá sa minimálny čas čakania upraviť v settings.py.
+Kažký request generuje náhodné html headery z modulu request_headers.py. Sú tam aj váhy pre kažký jeden paramenter a ich náhoda sa odvíja od nich. Dáta sú získané z reálnej štatistiky. Taktiež generujem aj nové cookies súbory. Pre každé jedno číslo zmluvy generujem jeden header a jeden cookie jar aby som simuloval jedného človeka. Rozostupy medzi requestami sú tiež náhodné (0,4-0,7s). Dá sa minimálny čas čakania upraviť v settings.py.
 
 
 ## Parsovanie dokumentov
@@ -73,8 +73,6 @@ odporúčané:
 ## Známe problémy
 
 1. efektivita závisí hlavne na ideálnych aliasoch (tiež nie je dobré, ak ich je príliš veľa)
-2. nenájde podpisy ale takťiež momentálne nie sú v predpokladoch
-3. nie je otestované na väčšej testovacej vzorke (momentálne cca 70 čísiel zmlúv)
 
 
 Občas sú pridané stubs, ale iba pri niektorých konštantách a funkciách. README je písaný čo najviac stručne a viac informácií a funkciách srciptu treba pozrieť kód
